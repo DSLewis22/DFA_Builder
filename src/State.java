@@ -1,5 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
+
+// All this class does is handle everything about each individual State
+// and all the things a STATE should be worried about.
+// Each State should know the following:
+/*  1. Are you the startState?
+ *  2. Are you the AcceptState?
+ *  3. What values can you read?
+ *  4. What State is next based on the value being read.
+ */
 public class State {
 
     private String valueBeingRead;
@@ -35,6 +44,12 @@ public class State {
         Map<String,State> transitionState = currentState.getTransitionMap();
         nextState = transitionState.get(currentInput); // grabs the next state based on the input.
         return nextState;
+    }
+
+    public void addToTransitionMap(String value, State nextState) // this function populates the the transitioning to the next State.
+    {
+        transitionMap.put(value,nextState);
+
     }
 
     public void displayinfo() // Might not need this.

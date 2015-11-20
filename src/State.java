@@ -12,8 +12,8 @@ import java.util.Map;
 public class State {
 
     private String valueBeingRead; // this is uesless.
-	private State nextState; // this too is also useless
-    private State currentState; // not quite sure how this will work or if i'll need this.
+	private State nextState; // needed for transitioning(Think how Linked List works)
+    private State currentState; // this is also useless
 	private Map<String, State> transitionMap = new HashMap<>(); // gotta figure out how to populate this Mapping.
     private boolean acceptState;
     private boolean startState;

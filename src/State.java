@@ -17,6 +17,7 @@ public class State {
 	private Map<String, State> transitionMap = new HashMap<>(); // gotta figure out how to populate this Mapping.
     private boolean acceptState;
     private boolean startState;
+    private char stateName; // this is needed to find the State corresponding with it to do transition mapping.
 
     // get properties for each field.
     public String getValueBeingRead(){return this.valueBeingRead;} //useless.
@@ -24,13 +25,24 @@ public class State {
     public State  getNextState() { return this.nextState;} // useless.
     public boolean getStartState() { return this.startState;}
     public Map getTransitionMap() {return this.transitionMap;}
+    public char getStateName() {return this.stateName;}
+
 
     // set properties for each field.
     public void valueBeingRead(String valueToRead){this.valueBeingRead = valueToRead;} // more uslessness
     public void setAcceptState(boolean acceptState){this.acceptState = acceptState;}
     public void setNextState(){} // not sure how this function will work just yet. Doesn't matter, it's uselss
     public void setStartState(boolean startState){this.startState = startState;}
+    public void setStateName(char stateName){this.stateName = stateName;}
 
+
+    public State(char name) { // since we get the states before knowing if it's the start or accept.
+                              // we'll initialize the Start and accept to false and change them later.
+                              // We'll change them based on their name, hence why you must pass in a name.
+        setStateName(name);
+        setAcceptState(false);
+        setStartState(false);
+    }
     // constructor
     public State(boolean startState, boolean acceptState)
     {
@@ -42,6 +54,10 @@ public class State {
     {                                                                // I think the currentState can be taken out cause the State calling this
                                                                     // method *SHOULD* be the currentState(so you can essentially use 'this' keyword).
         Map<String,State> transitionState = currentState.getTransitionMap();
+        if(!transitionState.containsKey(currentInput)) // if the value being read IS NOT in the mapping.
+        {                                              // in other words, if the value is not in the alphabet.
+            return null;
+        }
         nextState = transitionState.get(currentInput); // grabs the next state based on the input.
         return nextState;
     }

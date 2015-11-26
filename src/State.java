@@ -117,16 +117,16 @@ public class State {
                 System.out.println("accept state: " + accept);
 
 
-                String[][] transitionMap;
+                String[][] transitionArray;
                 int transitionsNum = (states.length * alphabet.length);
                 System.out.println(transitionsNum);
-                transitionMap = new String[transitionsNum][2];
+                transitionArray = new String[transitionsNum][2];
                 for(int i = 0, j = 4; i < transitionsNum && j < filearray.length;i++,j++) {
-                    transitionMap[i] = filearray[j].split("->");
+                    transitionArray[i] = filearray[j].split("->");
                 }
                 for (int k = 0; k < transitionsNum;k++){
                     for(int l = 0; l < 2;l++){
-                        System.out.print(transitionMap[k][l] + " ");
+                        System.out.print(transitionArray[k][l] + " ");
                     }
                     System.out.print("\n");
                 }
@@ -149,11 +149,10 @@ public class State {
 
 
                 }
-                System.out.println(transitionMap[0][0].substring(3,4));
 
                 for(int i = 0, j = 0, k = 0 ; i < stateObjects.length && j < stateObjects.length && k < transitionsNum;i++,j++,k++) {
-                    if (transitionMap[k][1].charAt(0) == stateObjects[i].stateName && transitionMap[k][0].charAt(1) == stateObjects[j].stateName)
-                        stateObjects[j].addToTransitionMap(transitionMap[k][0].substring(3,4),stateObjects[i]);
+                    if (transitionArray[k][1].charAt(0) == stateObjects[i].stateName && transitionArray[k][0].charAt(1) == stateObjects[j].stateName)
+                        stateObjects[j].addToTransitionMap(transitionArray[k][0].substring(3,4),stateObjects[i]);
                 }
 
 

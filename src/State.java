@@ -116,7 +116,7 @@ public class State {
                 System.out.println("\nstart state: " + start);
                 System.out.println("accept state: " + accept);
 
-                /*
+
                 String[][] transitionMap;
                 int transitionsNum = (states.length * alphabet.length);
                 System.out.println(transitionsNum);
@@ -130,7 +130,7 @@ public class State {
                     }
                     System.out.print("\n");
                 }
-                */
+
 
                 State[] stateObjects = new State[states.length];
                 for (int i = 0; i < states.length;i++) {
@@ -149,6 +149,15 @@ public class State {
 
 
                 }
+                System.out.println(transitionMap[0][0].substring(3,4));
+
+                for(int i = 0, j = 0, k = 0 ; i < stateObjects.length && j < stateObjects.length && k < transitionsNum;i++,j++,k++) {
+                    if (transitionMap[k][1].charAt(0) == stateObjects[i].stateName && transitionMap[k][0].charAt(1) == stateObjects[j].stateName)
+                        stateObjects[j].addToTransitionMap(transitionMap[k][0].substring(3,4),stateObjects[i]);
+                }
+
+
+
             }
             in.close();
 

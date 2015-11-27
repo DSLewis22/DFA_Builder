@@ -86,7 +86,7 @@ public class State {
         public static void main(String[] args) throws IOException, FileNotFoundException {
 
                 List<String> lines = new ArrayList<String>();
-                FileReader in = new FileReader("/Users/jlarkin9/Desktop/test.txt");
+                FileReader in = new FileReader("/Users/jlarkin9/Desktop/DFA_Builder/src/DFA.txt");
                 BufferedReader br = new BufferedReader(in);
 
                 String strLine = null;
@@ -102,16 +102,18 @@ public class State {
 
                 String[] filearray = lines.toArray(new String[lines.size()]);
 
-
+                //removing brackets
                 filearray[0] = filearray[0].substring(1, filearray[0].indexOf('}'));
                 filearray[1] = filearray[1].substring(1, filearray[1].indexOf('}'));
                 filearray[3] = filearray[3].substring(1, filearray[3].indexOf('}'));
 
+                //split text file lines; create states
                 String[] alphabet = filearray[0].split(",");
                 String[] states = filearray[1].split(",");
                 String start = filearray[2];
                 String accept = filearray[3];
 
+                //just some printing
                 System.out.println("alphabet: " + alphabet[0] + " " + alphabet[1]);
                 System.out.print("states: ");
                 for (int i = 0; i < states.length; i++) {
@@ -120,14 +122,15 @@ public class State {
                 System.out.println("\nstart state: " + start);
                 System.out.println("accept state: " + accept);
 
-
+                //transitions to 3-d array
                 String[][] transitionArray;
                 int transitionsNum = (states.length * alphabet.length);
-                System.out.println(transitionsNum);
                 transitionArray = new String[transitionsNum][2];
                 for (int i = 0, j = 4; i < transitionsNum && j < filearray.length; i++, j++) {
                     transitionArray[i] = filearray[j].split("->");
                 }
+
+                //printing transition array
                 for (int k = 0; k < transitionsNum; k++) {
                     for (int l = 0; l < 2; l++) {
                         System.out.print(transitionArray[k][l] + " ");
@@ -135,7 +138,7 @@ public class State {
                     System.out.print("\n");
                 }
 
-
+                //creates array of states and sets them accept, start, or neither
                 State[] stateObjects = new State[states.length];
                 for (int i = 0; i < states.length; i++) {
                     stateObjects[i] = new State(states[i].charAt(0));
@@ -147,12 +150,14 @@ public class State {
                         stateObjects[i].setAcceptState(false);
                         stateObjects[i].setStartState(false);
                     }
-                    //testing
+                    //testing accept or start
                     System.out.println(stateObjects[i].stateName + " start? " + stateObjects[i].getStartState());
                     System.out.println(stateObjects[i].stateName + " accept? " + stateObjects[i].getAcceptState());
 
 
                 }
+
+                //adds to transition map
 
                 for (int i = 0, j = 0, k = 0; i < stateObjects.length && j < stateObjects.length && k < transitionsNum; i++, j++, k++) {
                     if (transitionArray[k][1].charAt(0) == stateObjects[i].stateName && transitionArray[k][0].charAt(1) == stateObjects[j].stateName)
@@ -160,7 +165,6 @@ public class State {
                 }
 
 
-                //in.close();
 
 
 

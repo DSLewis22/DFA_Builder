@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.io.*;
 
@@ -81,24 +83,25 @@ public class State {
 
 
 
-        public static void main(String[] args) {
-            try {
-            FileInputStream in = new FileInputStream("/Users/jlarkin9/Desktop/test.txt");
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+        public static void main(String[] args) throws IOException, FileNotFoundException {
 
-            String strLine = null;
+                List<String> lines = new ArrayList<String>();
+                FileReader in = new FileReader("/Users/jlarkin9/Desktop/test.txt");
+                BufferedReader br = new BufferedReader(in);
 
-            String[] filearray;
-            filearray = new String[12];
-
-            while ((filearray[0] = br.readLine()) != null) {
-                System.out.println("DFA:\n" + filearray[0]);
+                String strLine = null;
 
 
-                for (int j = 1; j < filearray.length; j++) {
-                    filearray[j] = br.readLine();
-                    System.out.println(filearray[j]);
+                while ((strLine = br.readLine()) != null) {
+                    lines.add(strLine);
+
                 }
+
+                br.close();
+
+
+                String[] filearray = lines.toArray(new String[lines.size()]);
+
 
                 filearray[0] = filearray[0].substring(1, filearray[0].indexOf('}'));
                 filearray[1] = filearray[1].substring(1, filearray[1].indexOf('}'));
@@ -157,17 +160,9 @@ public class State {
                 }
 
 
-            }
-            in.close();
+                //in.close();
 
-        }
 
-            catch(FileNotFoundException e)  {
-                System.out.println(e);
-            }
-            catch(IOException e) {
-                System.out.println(e);
-            }
 
         }
     }

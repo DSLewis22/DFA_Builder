@@ -9,6 +9,7 @@ import java.util.List;
  * This classes also populates each STate Transition Map(a Field in the State Class)
  * it will also accept a string to pass to the DFA class to see if it's accepted or not.
  * This class just really facilitates everything that is going on under the hood.
+ * UTILIZE THE METHODS THAT ARE IN THE DFA CLASS AND THE STATE CLASS.
  */
 public class Parse {
 

@@ -1,6 +1,8 @@
 /**
  *  This class is will handle all the States and the ordering
  *  of the states. This class will only deal with State Objects.
+ *  as well as telling if a string is accepted or not.
+ *  UTILIZE THE METHODS WITHIN THE STATE CLASS!
  *
  */
 public class DFA {
@@ -27,6 +29,7 @@ public class DFA {
     {
         // order your states...
         // hint: just find your Start State and the rest will follow.
+        // each State has a boolean field for startState....
     }
 
     public void testString()
@@ -34,6 +37,7 @@ public class DFA {
         // accept a string and Test it to see if it's accepted or not.
         // return an output to the console letting the user know if it was accepted or not.
         // Needs to also be able to handle if you receive a string that is not in the alphabet(Error handling).
+        // each State has a Transition Method... Each state also has a boolean field for accepState.
     }
 
     public void findState()

@@ -25,7 +25,7 @@ public class State {
 	private Map<String, State> transitionMap = new HashMap<>(); // gotta figure out how to populate this Mapping.
     private boolean acceptState;
     private boolean startState;
-    private char stateName; // this is needed to find the State corresponding with it to do transition mapping.
+    public char stateName; // this is needed to find the State corresponding with it to do transition mapping.
 
     // get properties for each field.
     public String getValueBeingRead(){return this.valueBeingRead;} //useless.

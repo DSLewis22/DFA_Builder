@@ -16,11 +16,11 @@ public class DFA {
     //
     public DFA()
     {
-      // initialize your List here...
-      // Can't have a DFA object created without States.
+        // initialize your List here...
+        // Can't have a DFA object created without States.
     }
 
-    public void addState()
+    public void addState(State state)
     {
         // Accept a state object and add it to your List of STates.
     }
@@ -40,8 +40,9 @@ public class DFA {
         // each State has a Transition Method... Each state also has a boolean field for accepState.
     }
 
-    public void findState()
+    public State findState(char name)
     {
+        return null;
         // Accept the State's name(char)
         // and find it's corresponding State and return it.
     }

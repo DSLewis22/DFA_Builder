@@ -99,9 +99,21 @@ public class Parse {
         int transitionsNum = (states.length * alphabet.length);
         //adds to transition map
 
-        for (int i = 0, j = 0, k = 4; i < stateObjects.length && j < stateObjects.length && k < transitionsNum; i++, j++, k++) {
+        /* old loop
+
+        for (int i = 0, j = 0, k = 4; i < stateObjects.length && j < stateObjects.length && k < filearray.length; i++, j++, k++) {
             if (filearray[k].charAt(7) == stateObjects[i].stateName && filearray[k].charAt(1) == stateObjects[j].stateName)
                 stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);
+        }
+        */
+
+
+        //new loop
+        for(int k = 4; k < filearray.length;k++) {
+            for (int i = 0, j = 0; i < stateObjects.length && j < stateObjects.length; i++, j++) {
+                if (filearray[k].charAt(1) == stateObjects[j].stateName && filearray[k].charAt(7) == stateObjects[i].stateName)
+                    stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);
+            }
         }
 
     }

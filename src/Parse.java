@@ -100,7 +100,7 @@ public class Parse {
         //adds to transition map
 
         System.out.println(filearray[0].substring(3,4));
-        for (int i = 0, j = 0, k = 0; i < stateObjects.length && j < stateObjects.length && k < transitionsNum; i++, j++, k++) {
+        for (int i = 0, j = 0, k = 4; i < stateObjects.length && j < stateObjects.length && k < transitionsNum; i++, j++, k++) {
             if (filearray[k].charAt(7) == stateObjects[i].stateName && filearray[k].charAt(1) == stateObjects[j].stateName)
                 stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);
         }

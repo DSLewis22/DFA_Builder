@@ -38,6 +38,7 @@ public class Parse {
 
     public static void parse(String path) throws IOException
     {
+        //reading text file
         List<String> lines = new ArrayList<String>();
         FileReader in = new FileReader(path);
         BufferedReader br = new BufferedReader(in);
@@ -52,7 +53,7 @@ public class Parse {
 
         br.close();
 
-
+        //convert to array of text file lines
         String[] filearray = lines.toArray(new String[lines.size()]);
 
         //removing brackets
@@ -61,64 +62,33 @@ public class Parse {
         filearray[3] = filearray[3].substring(1, filearray[3].indexOf('}'));
 
         //split text file lines; create states
-        String[] alphabet = filearray[0].split(",");
+        String[] alphabet = filearray[0].split(",");  // NECESSARY???
+
         String[] states = filearray[1].split(",");
-        String start = filearray[2];
-        String accept = filearray[3];
-
-        //just some printing
-        System.out.println("alphabet: " + alphabet[0] + " " + alphabet[1]);
-        System.out.print("states: ");
-        for (int i = 0; i < states.length; i++) {
-            System.out.print(states[i] + " ");
-        }
-        System.out.println("\nstart state: " + start);
-        System.out.println("accept state: " + accept);
-
-
-
-        //creates array of states and sets them accept, start, or neither
-        State[] stateObjects = new State[states.length];
-        for (int i = 0; i < states.length; i++) {
-            stateObjects[i] = new State(states[i].charAt(0));
-            if (stateObjects[i].stateName == start.charAt(0))
-                stateObjects[i].setStartState(true);
-            else if (stateObjects[i].stateName == accept.charAt(0))
-                stateObjects[i].setAcceptState(true);
-            else {
-                stateObjects[i].setAcceptState(false);
-                stateObjects[i].setStartState(false);
-            }
-            //testing accept or start
-            System.out.println(stateObjects[i].stateName + " start? " + stateObjects[i].getStartState());
-            System.out.println(stateObjects[i].stateName + " accept? " + stateObjects[i].getAcceptState());
-
-
+        for (String name : states) {
+            dfa.addState(new State(name.charAt(0)));
         }
 
-        int transitionsNum = (states.length * alphabet.length);
-        //adds to transition map
+        //start state
+        String startState = filearray[2];
+        State tempStart = dfa.findState(startState.charAt(0));
+        tempStart.setStartState(true);
 
-        /* old loop
-
-        for (int i = 0, j = 0, k = 4; i < stateObjects.length && j < stateObjects.length && k < filearray.length; i++, j++, k++) {
-            if (filearray[k].charAt(7) == stateObjects[i].stateName && filearray[k].charAt(1) == stateObjects[j].stateName)
-                stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);
+        //accept states
+        String[] accept = filearray[3].split(",");
+        for (String nameOfAcceptStates : accept) // loop through accept array and find the states.
+        {
+            State acceptTemp = dfa.findState(nameOfAcceptStates.charAt(0)); // pointers(Temp Variable) going to work.
+            acceptTemp.setAcceptState(true);
         }
-        */
 
 
-        //new loop
+        //add to transition map
         for(int k = 4; k < filearray.length;k++) {
-            for (int i = 0, j = 0; i < stateObjects.length && j < stateObjects.length; i++, j++) {
+            State currentState = dfa.findState(filearray[k].charAt(0));
+            State nextState = dfa.findState(filearray[k].charAt(7));
+            currentState.addToTransitionMap(filearray[k].substring(3,4),nextState);
 
-                State kState = dfa.findState(filearray[k].charAt(0));
-                State jState = dfa.findState(filearray[k].charAt(7));
-                kState.addToTransitionMap(filearray[k].substring(3,4),jState);
-
-               /* if (filearray[k].charAt(1) == stateObjects[j].stateName && filearray[k].charAt(7) == stateObjects[i].stateName)
-                 stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);*/
-            }
         }
 
     }

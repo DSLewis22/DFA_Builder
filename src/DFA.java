@@ -37,11 +37,10 @@ public class DFA {
     public void orderStates()
     {
         // order your states...
-        // hint: just find your Start State and the rest will follow.
-        // each State has a boolean field for startState....
+        //  just find your Start State and the rest will follow(kind of how linked list work)
         for(State s : states)
         {
-            if(s.getAcceptState())
+            if(s.getStartState())
             {
                 startState = s;
                 break;
@@ -70,11 +69,11 @@ public class DFA {
 
         if(currentState.getAcceptState())
         {
-            System.out.println("The String" + input + " is accepted");
+            System.out.println("The String " + input + " is accepted");
         }
         else
         {
-            System.out.println("The String" + input + " is not accepted");
+            System.out.println("The String " + input + " is not accepted");
         }
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class Parse {
 
-    //static DFA dfa = new DFA(); // this is the dfa that'll hold all the states and tell each state what to do basically.
+    static DFA dfa = new DFA(); // this is the dfa that'll hold all the states and tell each state what to do basically.
     public static void main (String[] args) throws IOException
     { // first accept the rules to the DFA within the command line argument.
 
@@ -111,8 +111,13 @@ public class Parse {
         //new loop
         for(int k = 4; k < filearray.length;k++) {
             for (int i = 0, j = 0; i < stateObjects.length && j < stateObjects.length; i++, j++) {
-                if (filearray[k].charAt(1) == stateObjects[j].stateName && filearray[k].charAt(7) == stateObjects[i].stateName)
-                    stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);
+
+                State kState = dfa.findState(filearray[k].charAt(0));
+                State jState = dfa.findState(filearray[k].charAt(7));
+                kState.addToTransitionMap(filearray[k].substring(3,4),jState);
+
+               /* if (filearray[k].charAt(1) == stateObjects[j].stateName && filearray[k].charAt(7) == stateObjects[i].stateName)
+                 stateObjects[j].addToTransitionMap(filearray[k].substring(3,4), stateObjects[i]);*/
             }
         }
 

@@ -1,5 +1,13 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.io.*;
+
 
 // All this class does is handle everything about each individual State
 // and all the things a STATE should be worried about.
@@ -11,16 +19,15 @@ import java.util.Map;
  */
 public class State {
 
-    private String valueBeingRead; // this is uesless.
+
 	private State nextState; // needed for transitioning(Think how Linked List works)
-    private State currentState; // this is also useless
 	private Map<String, State> transitionMap = new HashMap<>(); // gotta figure out how to populate this Mapping.
     private boolean acceptState;
     private boolean startState;
-    private char stateName; // this is needed to find the State corresponding with it to do transition mapping.
+    public char stateName; // this is needed to find the State corresponding with it to do transition mapping.
 
     // get properties for each field.
-    public String getValueBeingRead(){return this.valueBeingRead;} //useless.
+
     public boolean  getAcceptState() {return this.acceptState;}
     public State  getNextState() { return this.nextState;} // useless.
     public boolean getStartState() { return this.startState;}
@@ -29,9 +36,7 @@ public class State {
 
 
     // set properties for each field.
-    public void valueBeingRead(String valueToRead){this.valueBeingRead = valueToRead;} // more uslessness
     public void setAcceptState(boolean acceptState){this.acceptState = acceptState;}
-    public void setNextState(){} // not sure how this function will work just yet. Doesn't matter, it's uselss
     public void setStartState(boolean startState){this.startState = startState;}
     public void setStateName(char stateName){this.stateName = stateName;}
 
@@ -68,11 +73,13 @@ public class State {
 
     }
 
-    public void displayInfo() // Might not need this.
-    {
-            // Definitely won't need this.
-    }
-
-
 }
+
+
+
+
+
+
+
+
 

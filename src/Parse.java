@@ -81,8 +81,7 @@ public class Parse {
             State acceptTemp = dfa.findState(nameOfAcceptStates.charAt(0)); // pointers(Temp Variable) going to work.
             acceptTemp.setAcceptState(true);
         }
-
-
+        
         //add to transition map
         for(int k = 4; k < filearray.length;k++) {
             State currentState = dfa.findState(filearray[k].charAt(0));

@@ -83,12 +83,12 @@ public class Parse {
         String[] filearray = lines.toArray(new String[lines.size()]);
 
         //removing brackets
-        filearray[0] = filearray[0].substring(1, filearray[0].indexOf('}'));
-        filearray[1] = filearray[1].substring(1, filearray[1].indexOf('}'));
-        filearray[3] = filearray[3].substring(1, filearray[3].indexOf('}'));
+        //filearray[0] = filearray[0].substring(1, filearray[0].indexOf('}')); // alphabet
+        filearray[1] = filearray[1].substring(1, filearray[1].indexOf('}')); // states
+        filearray[3] = filearray[3].substring(1, filearray[3].indexOf('}')); // accept State(s)
 
         //split text file lines; create states
-        String[] alphabet = filearray[0].split(",");  // NECESSARY???
+       // String[] alphabet = filearray[0].split(",");  // NECESSARY???
 
         String[] states = filearray[1].split(",");
         for (String name : states) {
@@ -104,6 +104,7 @@ public class Parse {
         String[] accept = filearray[3].split("");
         for (String nameOfAcceptStates : accept) // loop through accept array and find the states.
         {
+            if(!Character.isLetterOrDigit(nameOfAcceptStates.charAt(0))) continue; // this a check for if they're is more than one accept.
             State acceptTemp = dfa.findState(nameOfAcceptStates.charAt(0)); // pointers(Temp Variable) going to work.
             acceptTemp.setAcceptState(true);
         }

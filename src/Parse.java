@@ -14,7 +14,6 @@ import java.util.Scanner;
  * This classes also populates each STate Transition Map(a Field in the State Class)
  * it will also accept a string to pass to the DFA class to see if it's accepted or not.
  * This class just really facilitates everything that is going on under the hood.
- * UTILIZE THE METHODS THAT ARE IN THE DFA CLASS AND THE STATE CLASS.
  */
 public class Parse {
 
@@ -104,7 +103,10 @@ public class Parse {
         String[] accept = filearray[3].split("");
         for (String nameOfAcceptStates : accept) // loop through accept array and find the states.
         {
-            if(!Character.isLetterOrDigit(nameOfAcceptStates.charAt(0))) continue; // this a check for if they're is more than one accept.
+            // this a check for if they're is more than one accept state.
+            // split function also has tendency to add a an empty string(it has no error handling). so we handle it.
+            if(nameOfAcceptStates.isEmpty())continue;
+            if(!Character.isLetterOrDigit(nameOfAcceptStates.charAt(0)) || nameOfAcceptStates.isEmpty()) continue;
             State acceptTemp = dfa.findState(nameOfAcceptStates.charAt(0)); // pointers(Temp Variable) going to work.
             acceptTemp.setAcceptState(true);
         }
@@ -113,10 +115,11 @@ public class Parse {
         for(int k = 4; k < filearray.length;k++) {
             filearray[k] = filearray[k].replace('(', ' ').replace(')', ' ').trim(); // replacing the '( )' with blank spaces. and then trim the blank space
             char currentStateName = filearray[k].charAt(0);
-            char NextStatechar = filearray[k].charAt(6);
+            char nextStateName = filearray[k].charAt(6);
             State currentState = dfa.findState(currentStateName);
-            State nextState = dfa.findState(NextStatechar);
+            State nextState = dfa.findState(nextStateName);
             currentState.addToTransitionMap(filearray[k].substring(2,3),nextState);
+            System.out.println("line " + k + " is done");
         }
 
     }

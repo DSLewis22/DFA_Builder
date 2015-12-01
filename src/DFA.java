@@ -58,6 +58,8 @@ public class DFA {
         currentState = startState;
         for(int i = 0; i < inputArray.length; i++)
         {
+
+            if(inputArray[i].isEmpty())continue;// stupid split function adding an empty string for no damn reason.
             currentState = currentState.transition(currentState, inputArray[i]);
             if(currentState == null)
             {
